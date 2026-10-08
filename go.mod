@@ -1,8 +1,11 @@
-module monkey
+module monkey.anbirilo.net
 
 go 1.26.4
 
 require (
-	filippo.io/edwards25519 v1.2.0 // indirect
-	github.com/go-sql-driver/mysql v1.10.1 // indirect
+	github.com/go-sql-driver/mysql v1.10.1
+	github.com/julienschmidt/httprouter v1.3.0
+	github.com/justinas/alice v1.2.0
 )
+
+require filippo.io/edwards25519 v1.2.0 // indirect
