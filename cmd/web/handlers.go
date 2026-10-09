@@ -1,6 +1,7 @@
 package main
 
 import (
+	//"errors"
 	"net/http"
 	// "github.com/julienschmidt/httprouter"
 	// "snippetbox.anbirilo.net/internal/models"
@@ -9,4 +10,6 @@ import (
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Monkey"))
+	//app.serverError(w, errors.New("тестовая ошибка"))
+
 }

@@ -8,6 +8,8 @@ import (
 	"os"
 	"time"
 
+	"monkey.anbirilo.net/internal/models"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -15,6 +17,7 @@ type application struct {
 	debug    bool
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	expenses *models.ExpenseModel
 	//snippets       models.SnippetModelInterface
 	//users          models.UserModelInterface
 	//templateCache  map[string]*template.Template
@@ -53,6 +56,7 @@ func main() {
 		debug:    *debug,
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		expenses: &models.ExpenseModel{DB: db},
 		//snippets:       &models.SnippetModel{DB: db},
 		//users:          &models.UserModel{DB: db},
 		//templateCache:  templateCache,
