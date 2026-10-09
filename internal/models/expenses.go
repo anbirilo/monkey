@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type SnippetModelInterface interface {
+type ExpenseModelInterface interface {
 	Insert(title string, content string, expires int) (int, error)
 	Get(id int) (*Expense, error)
 	Latest() ([]*Expense, error)
@@ -48,4 +48,25 @@ func (m *ExpenseModel) Latest() ([]*Expense, error) {
 		return nil, err
 	}
 	return expenses, nil
+}
+
+func (m *ExpenseModel) Insert(userID int, categoryID int, title string,
+	amount int64, note string, spentOn time.Time) (int, error) {
+
+	stmt := "INSERT INTO expenses (user_id, category_id, title, amount, note, spent_on, created) VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())"
+
+	var nullNote sql.NullString
+	if note != "" {
+		nullNote = sql.NullString{String: note, Valid: true}
+	}
+
+	result, err := m.DB.Exec(stmt, userID, categoryID, title, amount, nullNote, spentOn)
+	if err != nil {
+		return 0, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return int(id), nil
 }
